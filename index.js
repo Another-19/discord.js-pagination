@@ -1,7 +1,7 @@
-const paginationEmbed = async (msg, pages, emojiList = ['⏪', '⏩'], timeout = 120000) => {
-	if (!msg && !msg.channel) throw new Error('Channel is inaccessible.');
+const paginationEmbed = async (msg, pages, emojiList = ["⬅️", "➡️"], timeout = 30000) => {
+	if (!message && !message.channel) throw new Error('Channel is inaccessible.');
 	if (!pages) throw new Error('Pages are not given.');
-	if (emojiList.length !== 2) throw new Error('Need two emojis.');
+	// if (emojiList.length !== 2) throw new Error('Need two emojis.');
 	let page = 0;
 	const curPage = await msg.channel.send(pages[page].setFooter(`You are currently viewing on page ${page + 1}/${pages.length}.`));
 	for (const emoji of emojiList) await curPage.react(emoji);
@@ -19,8 +19,9 @@ const paginationEmbed = async (msg, pages, emojiList = ['⏪', '⏩'], timeout =
 			default:
 				break;
 		}
-		curPage.edit(pages[page].setFooter(`You are currently viewing on page ${page + 1}/${pages.length}.`));
+		curPage.edit(pages[page].setFooter(`You are currently on page ${page + 1}/${pages.length}`));
 	});
+	
 	reactionCollector.on('remove', reaction => {
 		switch (reaction.emoji.name) {
 			case emojiList[0]:
@@ -32,8 +33,9 @@ const paginationEmbed = async (msg, pages, emojiList = ['⏪', '⏩'], timeout =
 			default:
 				break;
 		}
-		curPage.edit(pages[page].setFooter(`Page ${page + 1}/${pages.length}`));
+		curPage.edit(pages[page].setFooter(`You are currently on page ${page + 1}/${pages.length}`));
 	});
+	
 	reactionCollector.on('end', () => {
 		if (!curPage.deleted) {
 			curPage.reactions.removeAll()
@@ -41,4 +43,5 @@ const paginationEmbed = async (msg, pages, emojiList = ['⏪', '⏩'], timeout =
 	});
 	return curPage;
 };
+
 module.exports = paginationEmbed;
