@@ -1,9 +1,9 @@
-const paginationEmbed = async (message, pages, emojiList = ["⬅️", "➡️"], timeout = 30000) => {
+const paginationEmbed = async (message, pages, emojiList = ["⬅️", "➡️", "❎"], timeout = 30000) => {
 	if (!message && !message.channel) throw new Error('Channel is inaccessible.');
 	if (!pages) throw new Error('Pages are not given.');
 	// if (emojiList.length !== 2) throw new Error('Need two emojis.');
 	let page = 0;
-	const curPage = await message.channel.send(pages[page].setFooter(`Use the reactions below to change the embed pages. You are currently on page ${page + 1}/${pages.length}`));
+	const curPage = await message.channel.send(pages[page].setFooter(`Page ${page + 1}/${pages.length} - Use the reactions below to change the embed pages.`));
 	for (const emoji of emojiList) await curPage.react(emoji);
 	const reactionCollector = curPage.createReactionCollector(
 		(reaction, user) => emojiList.includes(reaction.emoji.name) && !user.bot,
@@ -16,10 +16,13 @@ const paginationEmbed = async (message, pages, emojiList = ["⬅️", "➡️"],
 			case emojiList[1]:
 				page = page + 1 < pages.length ? ++page : 0;
 				break;
+			case emojiList[2]:
+				curPage.reactions.removeAll();
+				break;
 			default:
 				break;
 		}
-		curPage.edit(pages[page].setFooter(`Use the reactions below to change the embed pages. You are currently on page ${page + 1}/${pages.length}`));
+		curPage.edit(pages[page].setFooter(`Page ${page + 1}/${pages.length} - Use the reactions below to change the embed pages.`));
 	});
 	
 	reactionCollector.on('remove', reaction => {
@@ -30,10 +33,13 @@ const paginationEmbed = async (message, pages, emojiList = ["⬅️", "➡️"],
 			case emojiList[1]:
 				page = page + 1 < pages.length ? ++page : 0;
 				break;
+			case emojiList[2]:
+				curPage.reactions.removeAll();
+				break;
 			default:
 				break;
 		}
-		curPage.edit(pages[page].setFooter(`Use the reactions below to change the embed pages. You are currently on page ${page + 1}/${pages.length}`));
+		curPage.edit(pages[page].setFooter(`Page ${page + 1}/${pages.length} - Use the reactions below to change the embed pages.`));
 	});
 	
 	reactionCollector.on('end', () => {
