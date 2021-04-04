@@ -3,7 +3,7 @@ const paginationEmbed = async (message, pages, emojiList = ["⬅️", "➡️"],
 	if (!pages) throw new Error('Pages are not given.');
 	// if (emojiList.length !== 2) throw new Error('Need two emojis.');
 	let page = 0;
-	const curPage = await message.channel.send(pages[page].setFooter(`You are currently viewing on page ${page + 1}/${pages.length}`));
+	const curPage = await message.channel.send(pages[page].setFooter(`Use the reactions below to change the embed pages. You are currently on page ${page + 1}/${pages.length}`));
 	for (const emoji of emojiList) await curPage.react(emoji);
 	const reactionCollector = curPage.createReactionCollector(
 		(reaction, user) => emojiList.includes(reaction.emoji.name) && !user.bot,
@@ -19,7 +19,7 @@ const paginationEmbed = async (message, pages, emojiList = ["⬅️", "➡️"],
 			default:
 				break;
 		}
-		curPage.edit(pages[page].setFooter(`You are currently on page ${page + 1}/${pages.length}`));
+		curPage.edit(pages[page].setFooter(`Use the reactions below to change the embed pages. You are currently on page ${page + 1}/${pages.length}`));
 	});
 	
 	reactionCollector.on('remove', reaction => {
@@ -33,7 +33,7 @@ const paginationEmbed = async (message, pages, emojiList = ["⬅️", "➡️"],
 			default:
 				break;
 		}
-		curPage.edit(pages[page].setFooter(`You are currently on page ${page + 1}/${pages.length}`));
+		curPage.edit(pages[page].setFooter(`Use the reactions below to change the embed pages. You are currently on page ${page + 1}/${pages.length}`));
 	});
 	
 	reactionCollector.on('end', () => {
