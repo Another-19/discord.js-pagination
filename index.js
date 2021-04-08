@@ -6,7 +6,7 @@ const paginationEmbed = async (message, pages, emojiList = ["⏮️", "⬅️", 
 	const curPage = await message.channel.send(pages[page].setFooter(`Page ${page + 1}/${pages.length} - Use the reactions below to change the embed pages.`));
 	for (const emoji of emojiList) await curPage.react(emoji);
 	const reactionCollector = curPage.createReactionCollector(
-		(reaction, user) => emojiList.includes(reaction.emoji.id) && !user.bot,
+		(reaction, user) => emojiList.includes(reaction.emoji.id || reaction.emoji.name) && !user.bot,
 		{time: timeout, dispose: true});
 	reactionCollector.on('collect', reaction => {
 		switch (reaction.emoji.name) {
