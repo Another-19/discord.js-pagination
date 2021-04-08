@@ -9,7 +9,7 @@ const paginationEmbed = async (message, pages, emojiList = ["⏮️", "⬅️", 
 		(reaction, user) => emojiList.includes(reaction.emoji.id) && !user.bot,
 		{time: timeout, dispose: true});
 	reactionCollector.on('collect', reaction => {
-		switch (reaction.emoji.name) {
+		switch (reaction.emoji.id) {
 			case emojiList[0]:
 				page = page + 1;
 				break;
@@ -22,10 +22,7 @@ const paginationEmbed = async (message, pages, emojiList = ["⏮️", "⬅️", 
 			case emojiList[3]:
 				page = pages.length - 1;
 				break;
-			case emojiList[4]:
-				curPage.reactions.removeAll();
-				break;
-			case emojiList[5]:
+			case "829731154487803944":
 				curPage.reactions.removeAll();
 				break;
 			default:
@@ -35,7 +32,7 @@ const paginationEmbed = async (message, pages, emojiList = ["⏮️", "⬅️", 
 	});
 	
 	reactionCollector.on('remove', reaction => {
-		switch (reaction.emoji.name) {
+		switch (reaction.emoji.id) {
 			case emojiList[0]:
 				page = page + 1;
 				break;
@@ -48,10 +45,7 @@ const paginationEmbed = async (message, pages, emojiList = ["⏮️", "⬅️", 
 			case emojiList[3]:
 				page = pages.length - 1;
 				break;
-			case emojiList[4]:
-				curPage.reactions.removeAll();
-				break;
-			case emojiList[5]:
+			case "829731154487803944":
 				curPage.reactions.removeAll();
 				break;
 			default:
