@@ -11,7 +11,7 @@ const paginationEmbed = async (message, pages, emojiList = ["⏮️", "⬅️", 
 	reactionCollector.on('collect', reaction => {
 		switch (reaction.emoji.name) {
 			case emojiList[0]:
-				page = page + 1;
+				page = 0;
 				break;
 			case emojiList[1]:
 				page = page > 0 ? --page : pages.length - 1;
@@ -32,7 +32,7 @@ const paginationEmbed = async (message, pages, emojiList = ["⏮️", "⬅️", 
 	reactionCollector.on('remove', reaction => {
 		switch (reaction.emoji.name) {
 			case emojiList[0]:
-				page = page + 1;
+				page = 0;
 				break;
 			case emojiList[1]:
 				page = page > 0 ? --page : pages.length - 1;
