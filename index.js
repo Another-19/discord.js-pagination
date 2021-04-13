@@ -6,6 +6,8 @@ const paginationEmbed = async (message, pages, emojiList = ["⏮️", "⬅️", 
 	const reactionCollector = curPage.createReactionCollector((reaction, user) => emojiList.includes(reaction.emoji.id || reaction.emoji.name) && !user.bot, {time: timeout, dispose: true});
 
 	reactionCollector.on("collect", (reaction, user) => {
+		console.log(user)
+		console.log("\n\n" + player)
 		switch (reaction.emoji.name && user.id == player) {
 			case emojiList[0]:
 				page = 0;
