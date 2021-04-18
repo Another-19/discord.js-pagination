@@ -20,7 +20,7 @@ const paginationEmbed = async (message, pages, emojiList = ["⏮️", "⬅️", 
 					page = pages.length - 1;
 					break;
 				case emojiList[4]:
-					curPage.delete();
+					message.channel.delete();
 					break;
 				default:
 					break;
@@ -45,7 +45,7 @@ const paginationEmbed = async (message, pages, emojiList = ["⏮️", "⬅️", 
 					page = pages.length - 1;
 					break;
 				case emojiList[4]:
-					curPage.delete();
+					message.channel.delete();
 					break;
 				default:
 					break;
@@ -56,7 +56,7 @@ const paginationEmbed = async (message, pages, emojiList = ["⏮️", "⬅️", 
 	
 	reactionCollector.on("end", () => {
 		if (!curPage.deleted) {
-			curPage.delete();
+			message.channel.delete();
 			// curPage.reactions.removeAll()
 		}
 	});
