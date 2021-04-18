@@ -1,5 +1,6 @@
 const paginationEmbed = async (message, pages, emojiList = ["⏮️", "⬅️", "➡️", "⏭️", "829731154487803944"], timeout = 300000) => { // async
 	let page = 0;
+	let delete = 0;
 	const curPage = await message.channel.send(pages[page].setFooter(`Page ${page + 1}/${pages.length} - Use the reactions below to change the embed pages.`)); // await
 	for (const emoji of emojiList) await curPage.react(emoji); // await
 	const reactionCollector = curPage.createReactionCollector((reaction, user) => emojiList.includes(reaction.emoji.id || reaction.emoji.name) && !user.bot, {time: timeout, dispose: true});
@@ -20,8 +21,8 @@ const paginationEmbed = async (message, pages, emojiList = ["⏮️", "⬅️", 
 					page = pages.length - 1;
 					break;
 				case emojiList[4]:
+					delete = 1;
 					curPage.delete({ timeout: 1000 }).then(message => console.log(`Deleted message from ${message.author.username} after 1 seconds`)).catch(console.error);
-					break;
 				default:
 					break;
 			}
@@ -45,8 +46,8 @@ const paginationEmbed = async (message, pages, emojiList = ["⏮️", "⬅️", 
 					page = pages.length - 1;
 					break;
 				case emojiList[4]:
+					delete = 1;
 					curPage.delete({ timeout: 1000 }).then(message => console.log(`Deleted message from ${message.author.username} after 1 seconds`)).catch(console.error);
-					break;
 				default:
 					break;
 			}
@@ -56,11 +57,11 @@ const paginationEmbed = async (message, pages, emojiList = ["⏮️", "⬅️", 
 	
 	reactionCollector.on("end", () => {
 		if (!curPage.deleted) {
-			
+			curPage.delete({ timeout: 1000 })
 			// curPage.reactions.removeAll()
 		}
 	});
-	return curPage;
+	if (delete == 0) return curPage;
 };
 
 module.exports = paginationEmbed;
