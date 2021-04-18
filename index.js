@@ -19,8 +19,10 @@ const paginationEmbed = async (message, pages, emojiList = ["⏮️", "⬅️", 
 				case emojiList[3]:
 					page = pages.length - 1;
 					break;
+				case emojiList[4]:
+					curPage.delete();
+					break;
 				default:
-					message.delete();
 					break;
 			}
 		}
@@ -42,8 +44,10 @@ const paginationEmbed = async (message, pages, emojiList = ["⏮️", "⬅️", 
 				case emojiList[3]:
 					page = pages.length - 1;
 					break;
+				case emojiList[4]:
+					curPage.delete();
+					break;
 				default:
-					message.delete();
 					break;
 			}
 		}
@@ -52,7 +56,8 @@ const paginationEmbed = async (message, pages, emojiList = ["⏮️", "⬅️", 
 	
 	reactionCollector.on("end", () => {
 		if (!curPage.deleted) {
-			curPage.reactions.removeAll()
+			curPage.delete();
+			// curPage.reactions.removeAll()
 		}
 	});
 	return curPage;
