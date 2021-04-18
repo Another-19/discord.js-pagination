@@ -9,24 +9,28 @@ const paginationEmbed = async (message, pages, emojiList = ["⏮️", "⬅️", 
 			switch (reaction.emoji.name) {
 				case emojiList[0]:
 					page = 0;
+					curPage.edit(pages[page].setFooter(`Page ${page + 1}/${pages.length} - Use the reactions below to change the embed pages.`));
 					break;
 				case emojiList[1]:
 					page = page > 0 ? --page : pages.length - 1;
+					curPage.edit(pages[page].setFooter(`Page ${page + 1}/${pages.length} - Use the reactions below to change the embed pages.`));
 					break;
 				case emojiList[2]:
 					page = page + 1 < pages.length ? ++page : 0;
+					curPage.edit(pages[page].setFooter(`Page ${page + 1}/${pages.length} - Use the reactions below to change the embed pages.`));
 					break;
 				case emojiList[3]:
 					page = pages.length - 1;
+					curPage.edit(pages[page].setFooter(`Page ${page + 1}/${pages.length} - Use the reactions below to change the embed pages.`));
 					break;
 				case emojiList[4]:
 					curPage.delete({ timeout: 1000 }).then(message => console.log(`Deleted message from ${message.author.username} after 1 seconds`)).catch(console.error);
 					break;
 				default:
+					curPage.edit(pages[page].setFooter(`Page ${page + 1}/${pages.length} - Use the reactions below to change the embed pages.`));
 					break;
 			}
 		}
-		curPage.edit(pages[page].setFooter(`Page ${page + 1}/${pages.length} - Use the reactions below to change the embed pages.`));
 	});
 	
 	reactionCollector.on("remove", (reaction, user) => {
@@ -34,24 +38,28 @@ const paginationEmbed = async (message, pages, emojiList = ["⏮️", "⬅️", 
 			switch (reaction.emoji.name) {
 				case emojiList[0]:
 					page = 0;
+					curPage.edit(pages[page].setFooter(`Page ${page + 1}/${pages.length} - Use the reactions below to change the embed pages.`));
 					break;
 				case emojiList[1]:
 					page = page > 0 ? --page : pages.length - 1;
+					curPage.edit(pages[page].setFooter(`Page ${page + 1}/${pages.length} - Use the reactions below to change the embed pages.`));
 					break;
 				case emojiList[2]:
 					page = page + 1 < pages.length ? ++page : 0;
+					curPage.edit(pages[page].setFooter(`Page ${page + 1}/${pages.length} - Use the reactions below to change the embed pages.`));
 					break;
 				case emojiList[3]:
 					page = pages.length - 1;
+					curPage.edit(pages[page].setFooter(`Page ${page + 1}/${pages.length} - Use the reactions below to change the embed pages.`));
 					break;
 				case emojiList[4]:
 					curPage.delete({ timeout: 1000 }).then(message => console.log(`Deleted message from ${message.author.username} after 1 seconds`)).catch(console.error);
 					break;
 				default:
+					curPage.edit(pages[page].setFooter(`Page ${page + 1}/${pages.length} - Use the reactions below to change the embed pages.`));
 					break;
 			}
 		}
-		curPage.edit(pages[page].setFooter(`Page ${page + 1}/${pages.length} - Use the reactions below to change the embed pages.`));
 	});
 	
 	reactionCollector.on("end", () => {
