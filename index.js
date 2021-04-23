@@ -23,10 +23,6 @@ const paginationEmbed = async (message, pages, emojiList = ["⏮️", "⬅️", 
 					page = pages.length - 1;
 					curPage.edit(pages[page].setFooter(`Page ${page + 1}/${pages.length} - Use the reactions below to change the embed pages.`));
 					break;
-				case emojiList[4]:
-					curPage.edit("\u200b")
-					reactionCollector.stop()
-					break;
 				default:
 					curPage.edit(pages[page].setFooter(`Page ${page + 1}/${pages.length} - Use the reactions below to change the embed pages.`));
 					break;
@@ -53,10 +49,6 @@ const paginationEmbed = async (message, pages, emojiList = ["⏮️", "⬅️", 
 					page = pages.length - 1;
 					curPage.edit(pages[page].setFooter(`Page ${page + 1}/${pages.length} - Use the reactions below to change the embed pages.`));
 					break;
-				case emojiList[4]:
-					curPage.edit("\u200b")
-					reactionCollector.stop()
-					break;
 				default:
 					curPage.edit(pages[page].setFooter(`Page ${page + 1}/${pages.length} - Use the reactions below to change the embed pages.`));
 					break;
@@ -64,9 +56,9 @@ const paginationEmbed = async (message, pages, emojiList = ["⏮️", "⬅️", 
 		}
 	});
 	
-	reactionCollector.on("end", () => {
+	reactionCollector.on("end", (reaction, user) => {
 		if (!curPage.deleted) {
-			curPage.reactions.removeAll()
+			reaction.users.remove(client.user.id);
 		}
 	});
 	
