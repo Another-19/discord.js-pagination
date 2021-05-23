@@ -56,18 +56,18 @@ const paginationEmbed = async (message, pages, emojiList = ["⏮️", "⬅️", 
 		}
 	});
 	
+	return curPage;
+
 	reactionCollector.on("end", (reaction, user) => {
 		if (!curPage.deleted) {
 			if (message.guild.me.hasPermission("MANAGE_MESSAGES")) {
-				message.edit("\u200b")
+				curPage.edit("\u200b")
 				reaction.users.remove(client.user.id);
 			} else {
-				message.edit("\u200b")
+				curPage.edit("\u200b")
 			}
 		}
 	});
-	
-	return curPage;
 };
 
 module.exports = paginationEmbed;
