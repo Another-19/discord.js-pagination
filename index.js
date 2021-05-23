@@ -1,3 +1,5 @@
+const discord = require("discord.js");
+
 const paginationEmbed = async (message, pages, emojiList = ["⏮️", "⬅️", "➡️", "⏭️"], timeout = 300000) => {
 	let page = 0;
 	const curPage = await message.channel.send(pages[page].setFooter(`Page ${page + 1}/${pages.length} - Use the reactions below to change the embed pages.`));
@@ -59,10 +61,10 @@ const paginationEmbed = async (message, pages, emojiList = ["⏮️", "⬅️", 
 	reactionCollector.on("end", (reaction, user) => {
 		if (!curPage.deleted) {
 			if (message.guild.me.hasPermission("MANAGE_MESSAGES")) {
-				curPage.edit("\u200b", null)
+				curPage.edit("\u200b", new discord.MessageEmbed().setTitle("\u200b").setColor("#2F3136"))
 				reaction.users.remove(client.user.id);
 			} else {
-				curPage.edit("\u200b", null)
+				curPage.edit("\u200b", new discord.MessageEmbed().setTitle("\u200b").setColor("#2F3136"))
 			}
 		}
 	});
