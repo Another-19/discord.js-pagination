@@ -1,6 +1,6 @@
-const paginationEmbed = async (message, pages, emojiList = ["⏮️", "⬅️", "➡️", "⏭️"], timeout = 300000) => { // async
+const paginationEmbed = async (message, pages, emojiList = ["⏮️", "⬅️", "➡️", "⏭️"], timeout = 300000) => {
 	let page = 0;
-	const curPage = await message.channel.send(pages[page].setFooter(`Page ${page + 1}/${pages.length} - Use the reactions below to change the embed pages.`)); // await
+	const curPage = await message.channel.send(pages[page].setFooter(`Page ${page + 1}/${pages.length} - Use the reactions below to change the embed pages.`));
 	for (const emoji of emojiList) await curPage.react(emoji); // await
 	const reactionCollector = curPage.createReactionCollector((reaction, user) => emojiList.includes(reaction.emoji.id || reaction.emoji.name) && !user.bot, {time: timeout, dispose: true});
 
@@ -55,8 +55,6 @@ const paginationEmbed = async (message, pages, emojiList = ["⏮️", "⬅️", 
 			}
 		}
 	});
-	
-	return curPage;
 
 	reactionCollector.on("end", (reaction, user) => {
 		if (!curPage.deleted) {
