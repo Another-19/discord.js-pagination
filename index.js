@@ -61,10 +61,10 @@ const paginationEmbed = async (message, pages, emojiList = ["⏮️", "⬅️", 
 	reactionCollector.on("end", (reaction, user) => {
 		if (!curPage.deleted) {
 			if (message.guild.me.hasPermission("MANAGE_MESSAGES")) {
-				curPage.edit("\u200b", new discord.MessageEmbed().setTitle("\u200b").setColor("#2F3136"))
-				reaction.users.remove(client.user.id);
+				curPage.edit("\u200b", new discord.MessageEmbed().setTitle("Reactions below on this message have been expired.").setColor("#2F3136"))
+				curPage.reaction.users.remove(client.user.id);
 			} else {
-				curPage.edit("\u200b", new discord.MessageEmbed().setTitle("\u200b").setColor("#2F3136"))
+				curPage.edit("\u200b", new discord.MessageEmbed().setTitle("Reactions below on this message have been expired.").setColor("#2F3136"))
 			}
 		}
 	});
