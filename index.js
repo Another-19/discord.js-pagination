@@ -1,11 +1,11 @@
 const discord = require("discord.js");
 
-const paginationEmbed = async (message, pages, emojiList = ["⏮️", "⬅️", "➡️", "⏭️"], timeout = 300000) => {
+const paginationEmbed = async (message, pages, emojiList = ["⏮️", "⬅️", "➡️", "⏭️"]) => {
 	let page = 0;
 	let something;
 	const curPage = await message.channel.send({ embeds: [pages[page].setFooter(`Page ${page + 1}/${pages.length} - Use the reactions below to change the embed pages.`)] });
 	for (const emoji of emojiList) await curPage.react(emoji); // await
-	const reactionCollector = curPage.createReactionCollector((reaction, user) => emojiList.includes(reaction.emoji.id || reaction.emoji.name) && !user.bot, {time: timeout, dispose: true});
+	const reactionCollector = curPage.createReactionCollector({ (reaction, user) => emojiList.includes(reaction.emoji.id || reaction.emoji.name) && !user.bot, time: 300000, dispose: true });
 
 	reactionCollector.on("collect", (reaction, user) => {
 		if (user.id == message.author.id) {
